@@ -53,7 +53,7 @@ const submitData = async () => {
     let lastNameDOM = document.querySelector("input[name=lastname]");
     let ageDOM = document.querySelector("input[name=age]");
     let genderDOM = document.querySelector("input[name=gender]:checked") || {}
-    let interestDOMs = document.querySelectorAll("input[name=interest]:checked") || {}
+    let interestDOMs = document.querySelectorAll("input[name=interests]:checked") || {}
     let descriptionDOM = document.querySelector("textarea[name='description']");
 
     let messageDOM = document.getElementById('message');
@@ -74,7 +74,7 @@ const submitData = async () => {
         age: ageDOM.value,
         gender: genderDOM.value,
         description: descriptionDOM.value,
-        interests: interest
+        interest: interest
     }
 
     console.log('submitData', userData);
@@ -190,21 +190,21 @@ app.put('/users/:id', async (req, res) => {
 
 
 
-// DELETE /users/:id - ลบ Users ตาม ID
+//path: DELETE /users/:id สำหรับลบ users รายคน (ตาม id ที่บันทึกเข้าไป)
 app.delete('/users/:id', async (req, res) => {
     try {
         let id = req.params.id;
-        const results = await conn.query('DELETE  users WHERE id = ?', parseInt(id))
+        const results = await conn.query('DELETE from users WHERE id = ?', parseInt(id))
         res.json({
             message: 'Delete user successfully',
             data: results[0]
         })
     } catch (error) {
-        console.error('error :', error.message)
+        console.log("error:", error.message)
         res.status(500).json({
             message: 'something went wrong',
             errorMessage: error.message
-        }) 
+        })
     }
 });
 
